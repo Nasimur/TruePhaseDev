@@ -4,9 +4,10 @@ TruePhase is an early cycle tracking app. This branch establishes the React, Typ
 
 ## Getting started
 
-Install Node.js 20.19+ or 22.12+ and npm, then run:
+Install Node.js 20.19+ or 22.12+ and npm. From the repository root, run:
 
 ```sh
+cd frontend
 npm install
 npm run dev
 ```
@@ -24,7 +25,7 @@ npm run typecheck
 - `src/app/` owns routes and the responsive navigation shell.
 - `src/pages/` holds route components. Calendar, insights, and settings are honest placeholders for later issues.
 - `src/styles/` holds the shared theme and responsive styles.
-- `src/models/` contains the team's existing shared data models. Those files are preserved unchanged on this branch.
+- `src/models/` contains the team's existing shared data models. Their contents are preserved unchanged on this branch.
 
 The app shell is separate from feature content. Future calendar and daily-log components can replace a page route without changing navigation. A future data module can provide an async interface to IndexedDB or a server, keeping persistence out of the UI components. No health data is collected or stored by this scaffold.
 
