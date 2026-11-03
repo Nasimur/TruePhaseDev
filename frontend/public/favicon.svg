@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="TruePhase">
+  <rect width="512" height="512" rx="120" fill="#b96788"/>
+  <circle cx="256" cy="256" r="150" fill="#fff8f3"/>
+  <path d="M256 352c-14-12-95-75-95-131 0-29 21-51 49-51 20 0 36 10 46 26 10-16 26-26 46-26 28 0 49 22 49 51 0 56-81 119-95 131Z" fill="#b96788"/>
+  <path d="M256 196a98 98 0 0 0-10 141" fill="none" stroke="#f0c4d0" stroke-width="12" stroke-linecap="round"/>
+</svg>

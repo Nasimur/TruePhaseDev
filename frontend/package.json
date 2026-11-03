@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/build-sw.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b",
-    "format": "prettier --write README.md index.html package.json vite.config.ts tsconfig*.json src/main.tsx src/app src/pages src/features src/styles"
+    "format": "prettier --write README.md index.html package.json vite.config.ts tsconfig*.json src/main.tsx src/app src/pages src/features src/styles scripts public/manifest.webmanifest"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
