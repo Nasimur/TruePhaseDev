@@ -20,6 +20,19 @@ npm run preview
 npm run typecheck
 ```
 
+## Install and offline use
+
+The production build includes a web app manifest, 192 px and 512 px icons, and a service worker. To check it locally:
+
+```sh
+npm run build
+npm run preview
+```
+
+Open the preview URL on `localhost` or `127.0.0.1`, allow the first visit to finish loading, then use the browser's Install app option. A deployed build needs HTTPS for service workers and installation on supported browsers. The Vite development server does not register the service worker.
+
+After the first successful visit, the app shell and routes can open offline. The worker caches only the generated HTML, JavaScript, CSS, manifest, and app icons. It does not cache API responses or cycle records. The current calendar uses in-memory demo records, so edits reset on reload, including offline reloads. New app versions activate after existing app tabs are closed; open forms are not reloaded automatically.
+
 ## App structure
 
 - `src/app/` owns routes and the responsive navigation shell.
