@@ -89,8 +89,8 @@ export function OverviewPage() {
       <div className="privacy-note">
         <LockKeyhole size={18} aria-hidden="true" />
         <p>
-          <strong>Made with privacy in mind.</strong> This early app layout does
-          not collect or save your health information yet.
+          <strong>Made with privacy in mind.</strong> Calendar entries in this
+          demo stay in memory and reset when you reload the page.
         </p>
       </div>
     </div>
