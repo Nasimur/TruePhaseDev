@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import type { PeriodRecord } from "../../models/types";
 import { isRealDate } from "./dateUtils";
-import { validatePeriod } from "./periodValidation";
+import {
+  isValidPeriodRecord,
+  validatePeriod,
+} from "./periodValidation";
 
 const saved: PeriodRecord = {
   id: "existing",
@@ -10,6 +13,17 @@ const saved: PeriodRecord = {
 };
 
 describe("period entry validation", () => {
+  it("validates persisted period records and rejects missing fields", () => {
+    expect(isValidPeriodRecord(saved)).toBe(true);
+    expect(isValidPeriodRecord({ ...saved, id: "  " })).toBe(false);
+    expect(isValidPeriodRecord({ ...saved, endDate: "2026-10-11" })).toBe(
+      false,
+    );
+    expect(
+      isValidPeriodRecord({ id: "missing-end", startDate: "2026-10-12" }),
+    ).toBe(false);
+  });
+
   it("rejects impossible dates, including non-leap February 29", () => {
     expect(isRealDate("2024-02-29")).toBe(true);
     expect(isRealDate("2026-02-29")).toBe(false);
@@ -40,6 +54,15 @@ describe("period entry validation", () => {
       validatePeriod({ id: "new", startDate: "2026-10-20", endDate: null }, [
         ongoing,
       ]),
+    ).toHaveProperty("startDate");
+  });
+
+  it("rejects saves when an existing period is corrupt", () => {
+    expect(
+      validatePeriod(
+        { id: "new", startDate: "2026-10-20", endDate: null },
+        [{ id: "bad", startDate: "not-a-date", endDate: null } as PeriodRecord],
+      ),
     ).toHaveProperty("startDate");
   });
 });

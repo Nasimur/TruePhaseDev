@@ -1,62 +1,71 @@
 import type { PeriodRecord } from "../../models/types";
-import { dateKey, localTodayKey, shiftedMonth } from "./dateUtils";
+import {
+  isValidPeriodRecord,
+  validatePeriod,
+} from "./periodValidation";
+import { periodDatabase, type PeriodDatabase } from "./periodDatabase";
 
-// The UI only depends on this contract. Annifa's IndexedDB functions, or a
-// future server client, can implement it without changing the calendar page.
 export interface PeriodRepository {
   list(): Promise<PeriodRecord[]>;
   save(record: PeriodRecord): Promise<void>;
   remove(id: string): Promise<void>;
 }
 
-function demoRecords(): PeriodRecord[] {
-  const today = localTodayKey();
-  const year = Number(today.slice(0, 4));
-  const month = Number(today.slice(5, 7));
-  const day = Number(today.slice(8, 10));
-  const current = new Date(Date.UTC(year, month - 1, 1));
-  const previous = shiftedMonth(current, -1);
-  const monthPrefix = today.slice(0, 7);
-  const currentEnd = Math.min(day, 5);
-
-  return [
-    {
-      id: "demo-previous",
-      startDate: dateKey(
-        new Date(
-          Date.UTC(previous.getUTCFullYear(), previous.getUTCMonth(), 6),
-        ),
-      ),
-      endDate: dateKey(
-        new Date(
-          Date.UTC(previous.getUTCFullYear(), previous.getUTCMonth(), 10),
-        ),
-      ),
-    },
-    {
-      id: "demo-current",
-      startDate: `${monthPrefix}-01`,
-      endDate: `${monthPrefix}-${String(currentEnd).padStart(2, "0")}`,
-    },
-  ];
+export class PeriodValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "PeriodValidationError";
+  }
 }
 
-export function createDemoPeriodRepository(): PeriodRepository {
-  let records = demoRecords();
+export class InvalidStoredPeriodError extends Error {
+  constructor() {
+    super("Stored period data is invalid. No changes were made.");
+    this.name = "InvalidStoredPeriodError";
+  }
+}
+
+function assertValidStoredPeriods(values: unknown[]): asserts values is PeriodRecord[] {
+  if (!values.every(isValidPeriodRecord)) {
+    throw new InvalidStoredPeriodError();
+  }
+}
+
+export function createIndexedDbPeriodRepository(
+  database: PeriodDatabase = periodDatabase,
+): PeriodRepository {
   return {
     async list() {
-      return records.map((record) => ({ ...record }));
+      const records: unknown[] = await database.periods.toArray();
+      assertValidStoredPeriods(records);
+      return records.sort((left, right) =>
+        left.startDate.localeCompare(right.startDate),
+      );
     },
     async save(record) {
-      records = [
-        ...records.filter((item) => item.id !== record.id),
-        { ...record },
-      ];
+      if (!isValidPeriodRecord(record)) {
+        throw new PeriodValidationError("Check the period ID and dates.");
+      }
+
+      await database.transaction("rw", database.periods, async () => {
+        const existing: unknown[] = await database.periods.toArray();
+        assertValidStoredPeriods(existing);
+
+        const errors = validatePeriod(record, existing);
+        if (Object.keys(errors).length) {
+          throw new PeriodValidationError(
+            errors.startDate ?? errors.endDate ?? "Check the period dates.",
+          );
+        }
+
+        await database.periods.put({ ...record });
+      });
     },
     async remove(id) {
-      records = records.filter((record) => record.id !== id);
+      await database.periods.delete(id);
     },
   };
 }
 
-export const demoPeriodRepository = createDemoPeriodRepository();
+export const indexedDbPeriodRepository =
+  createIndexedDbPeriodRepository();

@@ -16,7 +16,8 @@ import {
   shiftedMonth,
 } from "../features/periods/dateUtils";
 import {
-  demoPeriodRepository,
+  indexedDbPeriodRepository,
+  PeriodValidationError,
   type PeriodRepository,
 } from "../features/periods/periodRepository";
 import {
@@ -35,7 +36,7 @@ function coveringPeriod(date: string, records: PeriodRecord[], today: string) {
 }
 
 export function CalendarPage({
-  repository = demoPeriodRepository,
+  repository = indexedDbPeriodRepository,
 }: {
   repository?: PeriodRepository;
 }) {
@@ -115,10 +116,16 @@ export function CalendarPage({
         endDate: candidate.endDate ?? "",
       });
       setNotice(
-        form.id ? "Period updated in this demo." : "Period added to this demo.",
+        form.id
+          ? "Period updated and saved on this device."
+          : "Period added and saved on this device.",
       );
-    } catch {
-      setNotice("Unable to save this period. Please try again.");
+    } catch (error) {
+      setNotice(
+        error instanceof PeriodValidationError
+          ? error.message
+          : "Unable to save this period. Please try again.",
+      );
     } finally {
       setSaving(false);
     }
@@ -132,7 +139,7 @@ export function CalendarPage({
       setPeriods(await repository.list());
       setForm(emptyForm);
       setErrors({});
-      setNotice("Period removed from this demo.");
+      setNotice("Period removed from this device.");
     } catch {
       setNotice("Unable to remove this period. Please try again.");
     } finally {
@@ -180,8 +187,8 @@ export function CalendarPage({
       <div className="demo-banner" role="note">
         <CalendarDays size={18} aria-hidden="true" />
         <span>
-          <strong>Demo calendar.</strong> These are sample records. Changes
-          reset when you reload the page.
+          <strong>Private by design.</strong> Your period records stay in this
+          browser on this device.
         </span>
       </div>
 
@@ -357,7 +364,7 @@ export function CalendarPage({
           </span>
         </div>
         {loading ? (
-          <p className="period-empty">Loading sample records…</p>
+          <p className="period-empty">Loading your saved periods…</p>
         ) : visiblePeriods.length ? (
           <div className="period-rows">
             {visiblePeriods.map((record) => (

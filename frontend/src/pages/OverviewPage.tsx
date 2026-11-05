@@ -89,8 +89,8 @@ export function OverviewPage() {
       <div className="privacy-note">
         <LockKeyhole size={18} aria-hidden="true" />
         <p>
-          <strong>Made with privacy in mind.</strong> Calendar entries in this
-          demo stay in memory and reset when you reload the page.
+          <strong>Made with privacy in mind.</strong> Period entries stay in
+          this browser on this device and are not sent to a server.
         </p>
       </div>
     </div>
