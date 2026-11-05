@@ -1,6 +1,6 @@
 # TruePhase
 
-TruePhase is an early cycle tracking app. This branch establishes the React, TypeScript, and Vite frontend for issue #5.
+TruePhase is a local-first cycle tracking app. The frontend uses React, TypeScript, Vite, and IndexedDB for period records.
 
 ## Getting started
 
@@ -8,7 +8,7 @@ Install Node.js 20.19+ or 22.12+ and npm. From the repository root, run:
 
 ```sh
 cd frontend
-npm install
+npm ci
 npm run dev
 ```
 
@@ -18,15 +18,17 @@ Open the local URL printed by Vite. Other commands:
 npm run build
 npm run preview
 npm run typecheck
+npm test
 ```
 
 ## App structure
 
 - `src/app/` owns routes and the responsive navigation shell.
-- `src/pages/` holds route components. Calendar, insights, and settings are honest placeholders for later issues.
+- `src/pages/` holds route components. Insights and settings remain placeholders for later issues.
+- `src/features/periods/` holds calendar date helpers, form validation, IndexedDB persistence, and the async `PeriodRepository` contract.
 - `src/styles/` holds the shared theme and responsive styles.
-- `src/models/` contains the team's existing shared data models. Their contents are preserved unchanged on this branch.
+- `src/models/` contains the team's shared data models.
 
-The app shell is separate from feature content. Future calendar and daily-log components can replace a page route without changing navigation. A future data module can provide an async interface to IndexedDB or a server, keeping persistence out of the UI components. No health data is collected or stored by this scaffold.
+Period records are stored in this browser's IndexedDB database and remain available after reloads. Browser storage can be cleared and is not an encrypted backup; avoid using a shared device for sensitive entries. Period data is not sent to a server.
 
-The existing `src/models/` work is still in progress: its type and validation files currently reference symbols that have not been defined there yet. The app TypeScript project includes only the new frontend paths until that shared model work is complete. Once it is, add the models to the TypeScript project and import `PeriodRecord` and `DailyLog` into the relevant feature pages.
+The shared `PeriodRecord` type is used by the calendar. `Mood` and `Energy` definitions were added to the existing model types so the frontend can typecheck that import. The separate `src/models/validation.ts` work is still in progress; it is not used by this calendar form. Once it is complete, its validators can replace the local period form checks.
