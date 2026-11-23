@@ -1,0 +1,7 @@
+# Third-party datasets (e.g. Kaggle / Marquette FedCycleData) stay local: license is unclear and it is real participant data.
+data/raw/
+
+# Python
+.venv/
+__pycache__/
+.ipynb_checkpoints/

@@ -1,0 +1,32 @@
+{
+  "test_size": 0.2,
+  "train_rows": 1157,
+  "test_rows": 349,
+  "train_people": 118,
+  "test_people": 30,
+  "mae_days": {
+    "constant_28": 2.65,
+    "last_cycle": 2.923,
+    "history_mean": 2.299,
+    "history_median": 2.282,
+    "random_forest": 2.213
+  },
+  "permutation_importance_mae_days": {
+    "history_mean": 1.0694,
+    "n_prior_cycles": 0.0343,
+    "history_std": 0.0317,
+    "prev_length_3": 0.026,
+    "history_median": 0.024,
+    "bmi": 0.0194,
+    "reproductive_category": 0.0161,
+    "prev_menses_score": 0.0138,
+    "living_kids": 0.0094,
+    "pregnancies": 0.0061,
+    "breastfeeding": 0.0042,
+    "age": 0.004,
+    "prev_menses_length": 0.0001,
+    "prev_unusual_bleeding": -0.0001,
+    "prev_length_2": -0.0047,
+    "prev_length_1": -0.0109
+  }
+}
