@@ -556,3 +556,388 @@ h2 {
     transition: none !important;
   }
 }
+
+/* Calendar and period entry */
+.calendar-page-heading {
+  align-items: center;
+}
+.calendar-page-heading .primary-button {
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.demo-banner {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0 0 22px;
+  padding: 13px 17px;
+  border: 1px solid #f0e3df;
+  border-radius: 12px;
+  color: #836f77;
+  background: #fff9f5;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.demo-banner svg {
+  flex: none;
+  color: #b76d89;
+}
+.demo-banner strong {
+  color: #704b5b;
+}
+.calendar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+  gap: 20px;
+  align-items: start;
+}
+.calendar-card,
+.period-form-card,
+.period-list {
+  border: 1px solid #f0e7e3;
+  border-radius: 18px;
+  background: #fffdfb;
+  box-shadow: 0 6px 24px #69545d08;
+}
+.calendar-card {
+  padding: 25px;
+}
+.calendar-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.calendar-caption {
+  margin: 0 0 4px;
+  color: #b38494;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+.calendar-toolbar h2 {
+  margin: 0;
+  font-size: 23px;
+  letter-spacing: -0.5px;
+}
+.calendar-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.icon-button,
+.today-button {
+  height: 34px;
+  border: 1px solid #f0e7e3;
+  border-radius: 8px;
+  color: #806d77;
+  background: white;
+  cursor: pointer;
+}
+.icon-button {
+  width: 34px;
+  display: grid;
+  place-items: center;
+}
+.today-button {
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.icon-button:hover,
+.today-button:hover {
+  border-color: #dbaaba;
+  color: #a85276;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+.weekday {
+  padding: 0 0 10px;
+  text-align: center;
+  color: #aa9ba1;
+  font-size: 11px;
+  font-weight: 700;
+}
+.calendar-day {
+  position: relative;
+  min-width: 0;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: #5f5159;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+.calendar-day:hover {
+  border-color: #e4bbca;
+  background: #fcf4f6;
+}
+.calendar-day.outside {
+  color: #c2b6bb;
+}
+.calendar-day.recorded {
+  color: #8e4665;
+  background: #f9eaf0;
+}
+.calendar-day.recorded:hover,
+.calendar-day.selected {
+  border-color: #bd7895;
+}
+.calendar-day.today > span {
+  text-decoration: underline;
+  text-decoration-color: #a85778;
+  text-underline-offset: 4px;
+}
+.calendar-day i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #bd7895;
+}
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 19px;
+  color: #94868d;
+  font-size: 11px;
+}
+.legend-dot,
+.legend-today {
+  width: 9px;
+  height: 9px;
+  margin-left: 8px;
+  border-radius: 50%;
+  background: #d99cb3;
+}
+.legend-dot:first-child {
+  margin-left: 0;
+}
+.legend-today {
+  border: 2px solid #bd7895;
+  background: transparent;
+}
+.period-form-card {
+  padding: 25px;
+}
+.form-icon,
+.period-row-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #af6685;
+  background: #f9eaf0;
+}
+.period-form-card h2 {
+  margin: 17px 0 4px;
+  font-size: 22px;
+}
+.form-intro {
+  margin: 0 0 26px;
+  color: #95868d;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.form-field {
+  margin-bottom: 17px;
+}
+.form-field label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #5c4c55;
+  font-size: 12px;
+  font-weight: 700;
+}
+.form-field label > span:not(.optional) {
+  color: #b44e70;
+}
+.optional {
+  color: #ad9fa6;
+  font-weight: 500;
+}
+.form-field input {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 11px;
+  border: 1px solid #e7dce0;
+  border-radius: 8px;
+  color: #594b53;
+  background: white;
+  font: inherit;
+  font-size: 13px;
+}
+.form-field input:focus {
+  outline: 2px solid #b96788;
+  outline-offset: 1px;
+}
+.form-field input[aria-invalid="true"] {
+  border-color: #bb4e66;
+}
+.field-help,
+.field-error {
+  margin: 6px 0 0;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.field-help {
+  color: #a3949b;
+}
+.field-error {
+  color: #a72f4e;
+}
+.form-submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 6px;
+  border: 0;
+  cursor: pointer;
+}
+.form-submit:disabled,
+.remove-button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.remove-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  margin-top: 12px;
+  padding: 9px;
+  border: 0;
+  color: #a6536b;
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+.remove-button:hover {
+  text-decoration: underline;
+}
+.form-notice {
+  min-height: 17px;
+  margin: 8px 0 0;
+  color: #8c6174;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.period-list {
+  margin-top: 20px;
+  padding: 23px 25px;
+}
+.period-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+.period-list-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+.period-list-heading > span {
+  color: #a09198;
+  font-size: 11px;
+}
+.period-rows {
+  display: grid;
+  gap: 8px;
+}
+.period-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 12px;
+  border: 1px solid #f1e9e6;
+  border-radius: 10px;
+  text-align: left;
+  background: #fff;
+  cursor: pointer;
+}
+.period-row:hover {
+  border-color: #e5bdca;
+}
+.period-row-icon {
+  width: 36px;
+  height: 36px;
+  flex: none;
+}
+.period-row strong,
+.period-row small {
+  display: block;
+}
+.period-row strong {
+  color: #58434e;
+  font-size: 12px;
+}
+.period-row small {
+  margin-top: 3px;
+  color: #9a8b92;
+  font-size: 11px;
+}
+.period-row-edit {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  color: #aa6581;
+  font-size: 11px;
+  font-weight: 700;
+}
+.period-empty {
+  margin: 0;
+  padding: 19px 0;
+  color: #9a8b92;
+  font-size: 12px;
+}
+@media (max-width: 1050px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 700px) {
+  .calendar-page-heading {
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .calendar-page-heading .primary-button {
+    padding: 10px;
+    font-size: 0;
+  }
+  .calendar-page-heading .primary-button svg {
+    width: 19px;
+    height: 19px;
+  }
+  .calendar-card,
+  .period-form-card,
+  .period-list {
+    padding: 18px;
+  }
+  .calendar-toolbar h2 {
+    font-size: 20px;
+  }
+  .calendar-grid {
+    gap: 2px;
+  }
+  .calendar-day {
+    font-size: 12px;
+  }
+}

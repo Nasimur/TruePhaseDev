@@ -1,17 +1,7 @@
-import {
-  ArrowLeft,
-  CalendarDays,
-  ChartNoAxesCombined,
-  Settings2,
-} from "lucide-react";
+import { ArrowLeft, ChartNoAxesCombined, Settings2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const content = {
-  calendar: {
-    title: "Your calendar is on its way",
-    description: "Soon you’ll be able to add and review period dates here.",
-    icon: CalendarDays,
-  },
   insights: {
     title: "Insights are on their way",
     description:
