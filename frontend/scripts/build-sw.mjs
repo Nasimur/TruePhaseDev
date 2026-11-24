@@ -53,7 +53,13 @@ self.addEventListener("fetch", (event) => {
   }
 
   if (SHELL_PATHS.has(url.pathname)) {
-    event.respondWith(caches.match(request).then((hit) => hit || fetch(request)));
+    // Look up by path rather than by the original request. Vite's module
+    // script and stylesheet tags use crossorigin requests that carry an Origin
+    // header, and hosts commonly send "Vary: Origin". Matching the request
+    // directly would then miss the precached copy and fail while offline.
+    event.respondWith(
+      caches.match(url.pathname, { ignoreVary: true }).then((hit) => hit || fetch(request))
+    );
   }
 });
 `;
